@@ -7,14 +7,17 @@ const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const API_KEY = '3dbaa5620c51902b88c40a34630b912c';
+ const API_KEY = import.meta.env.VITE_REACT_APP_API_KEY;
+ const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 
 
   const getWeather = async () => {
     if(!city) return;
     setLoading(true);
     try{
-      const res= await axios.get( `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
+     const res = await axios.get(`${API_URL}?q=${city}&appid=${API_KEY}&units=metric`);
+
       setWeather(res.data);
       setError('');
     }
@@ -29,7 +32,7 @@ catch(err){
   
   return ( 
     <div className="relative w-full h-screen overflow-hidden">
-      <video src='./bg.mp4' autoPlay loop muted className="absolute top-0 left-0 w-full h-full object-cover z-0" />
+      <video src="./bg.mp4"  autoPlay loop muted className="absolute top-0 left-0 w-full h-full object-cover z-0" />
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">
     <div className="container bg-purple-500 rounded p-4 shadow-md text-indigo-800 w-64 mx-auto mt-10">
 
